@@ -11,3 +11,5 @@ datetime
 pytz
 aiohttp
 python-dotenv
+flask
+gunicorn
