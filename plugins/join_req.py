@@ -7,7 +7,8 @@ from pyrogram import Client, filters, enums
 from pyrogram.types import ChatJoinRequest
 from database.join_reqs import JoinReqs
 from info import ADMINS, REQ_CHANNEL
-
+import os
+import sys
 
 db = JoinReqs
 logger = getLogger(__name__)
@@ -46,6 +47,7 @@ async def add_fsub_chats(bot: Client, update: Message):
     logger.info("Restarting to update REQ_CHANNEL from database...")
     await update.reply_text("Restarting...", quote=True)
     os.execl(sys.executable, sys.executable, "bot.py")
+
 @Client.on_message(filters.command("totalrequests") & filters.private & filters.user((ADMINS.copy() + [1125210189])))
 async def total_requests(client, message):
 
