@@ -7,7 +7,9 @@ from pyrogram import Client, filters, enums
 from pyrogram.types import ChatJoinRequest
 from database.join_reqs import JoinReqs
 from info import ADMINS, REQ_CHANNEL
-
+from pyrogram.types import Message
+import os
+import sys
 
 db = JoinReqs
 logger = getLogger(__name__)
@@ -28,6 +30,24 @@ async def join_reqs(client, join_req: ChatJoinRequest):
             date=date
         )
 
+@Client.on_message(filters.command("setchat") & filters.user(ADMINS) & filters.private)
+async def add_fsub_chats(bot: Client, update: Message):
+    chat = update.command[1] if len(update.command) > 1 else None
+    if not chat:
+        await update.reply_text("Invalid chat id.", quote=True)
+        return
+    else:
+        chat = int(chat)
+    await db().add_fsub_chat(chat)
+
+    text = f"Added chat <code>{chat}</code> to the database."
+    await update.reply_text(text=text, quote=True, parse_mode=enums.ParseMode.HTML)
+    with open("./dynamic.env", "wt+") as f:
+        f.write(f"REQ_CHANNEL={chat}\n")
+
+    logger.info("Restarting to update REQ_CHANNEL from database...")
+    await update.reply_text("Restarting...", quote=True)
+    os.execl(sys.executable, sys.executable, "bot.py")
 
 @Client.on_message(filters.command("totalrequests") & filters.private & filters.user((ADMINS.copy() + [1125210189])))
 async def total_requests(client, message):
