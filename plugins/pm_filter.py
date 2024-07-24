@@ -7,7 +7,9 @@ import random
 import pytz
 from datetime import datetime, timedelta, date, time
 lock = asyncio.Lock()
-
+from database.join_reqs import JoinReqs
+import os 
+import sys
 from pyrogram.errors.exceptions.bad_request_400 import MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
 from Script import script
 import pyrogram
