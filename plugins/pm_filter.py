@@ -6,7 +6,9 @@ import math
 import random
 import pyrogram
 lock = asyncio.Lock()
-
+from database.join_reqs import JoinReqs
+import os 
+import sys
 from pyrogram.errors.exceptions.bad_request_400 import MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
 from Script import script
 from database.connections_mdb import active_connection, all_connections, delete_connection, if_active, make_active, \
