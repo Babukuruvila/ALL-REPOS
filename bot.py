@@ -19,6 +19,9 @@ from Script import script
 from datetime import date, datetime 
 import pytz
 from sample_info import tempDict
+from database.join_reqs import JoinReqs
+import os 
+import sys
 
 class Bot(Client):
 
