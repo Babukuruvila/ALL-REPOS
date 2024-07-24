@@ -7,6 +7,7 @@ from pyrogram import Client, filters, enums
 from pyrogram.types import ChatJoinRequest
 from database.join_reqs import JoinReqs
 from info import ADMINS, REQ_CHANNEL
+from pyrogram.types import Message
 import os
 import sys
 
