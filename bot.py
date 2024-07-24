@@ -20,6 +20,9 @@ from datetime import date, datetime
 import pytz
 from aiohttp import web
 from plugins import web_server
+from database.join_reqs import JoinReqs
+import os 
+import sys
 
 class Bot(Client):
 
